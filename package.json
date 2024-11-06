@@ -5,6 +5,7 @@
   "author": "Eliaz Bobadilla <eliaz.bobadilladev@gmail.com>",
   "license": "MIT",
   "main": "lib/index.js",
+  "packageManager": "yarn@3.5.0",
   "keywords": [
     "coc.nvim",
     "ziglang",

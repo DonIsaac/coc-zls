@@ -1,3 +1,11 @@
-node_modules/
 lib/
+
+# Dependencies
+node_modules/
 yarn-error.log
+.yarn
+!.yarn/releases
+!.yarn/plugins
+.pnp.js
+
+.DS_Store

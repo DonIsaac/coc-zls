@@ -13,11 +13,11 @@ import {lspName} from './constants';
 export async function activate(context: ExtensionContext) {
 	const config = workspace.getConfiguration('zig');
 
-	const command = config.get('path', '');
-
 	if (!config.get('enabled', true)) {
 		return;
 	}
+
+	const command = config.get('path', '');
 
 	if (!command) {
 		return window.showErrorMessage(
@@ -48,11 +48,12 @@ export async function activate(context: ExtensionContext) {
 		window.showMessage(`${lspName} running!`);
 	}
 
-	commands.registerCommand('start', client.start);
+	commands.registerCommand('zig.start', client.start);
 
-	commands.registerCommand('stop', client.stop);
+	commands.registerCommand('zig.stop', client.stop);
 
-	commands.registerCommand('restart', async () => {
+	commands.registerCommand('zig.restart', async () => {
+		window.showMessage('Restarting Zig Language Server...');	
 		await client.stop();
 		client.start();
 	});

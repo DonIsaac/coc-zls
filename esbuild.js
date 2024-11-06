@@ -1,17 +1,23 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+
 async function start(watch) {
-  await require("esbuild").build({
+  const ctx = await require("esbuild").context({
     entryPoints: ["src/index.ts"],
     bundle: true,
-    watch,
     minify: process.env.NODE_ENV === "production",
-    sourcemap: process.env.NODE_ENV === "development",
+    sourcemap: true,
     mainFields: ["module", "main"],
     external: ["coc.nvim"],
     platform: "node",
-    target: "node10.12",
+    target: "node18.0",
     outfile: "lib/index.js",
   });
+
+  if (watch) {
+    await ctx.watch(watch);
+  } else {
+    await ctx.dispose();
+  }
 }
 
 let watch = false;
@@ -29,6 +35,8 @@ if (process.argv.length > 2 && process.argv[2] === "--watch") {
   };
 }
 
-start(watch).catch((error) => {
-  console.error(error);
-});
+start(watch)
+  .then(() => console.log("Done."))
+  .catch((error) => {
+    console.error(error);
+  });

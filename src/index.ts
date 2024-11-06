@@ -42,10 +42,10 @@ export async function activate(context: ExtensionContext) {
 		clientOptions,
 	);
 
-	context.subscriptions.push(services.registLanguageClient(client));
+	context.subscriptions.push(services.registerLanguageClient(client));
 
 	if (config.get('startUpMessage', true)) {
-		window.showMessage(`${lspName} running!`);
+		window.showInformationMessage(`${lspName} running!`);
 	}
 
 	commands.registerCommand('zig.start', client.start);
@@ -53,7 +53,7 @@ export async function activate(context: ExtensionContext) {
 	commands.registerCommand('zig.stop', client.stop);
 
 	commands.registerCommand('zig.restart', async () => {
-		window.showMessage('Restarting Zig Language Server...');	
+		window.showInformationMessage('Restarting Zig Language Server...');	
 		await client.stop();
 		client.start();
 	});
